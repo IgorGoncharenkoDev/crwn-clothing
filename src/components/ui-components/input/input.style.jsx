@@ -4,7 +4,7 @@ const colorPrimary = 'black';
 const colorSecondary = 'grey';
 
 const srinkLabel = css`
-	top: -14px;
+	top: -18px;
   font-size: 12px;
   color: ${ colorPrimary};
 `;

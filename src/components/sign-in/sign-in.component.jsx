@@ -1,11 +1,11 @@
-import React, { useReducer, useCallback } from 'react';
+import React, { useReducer } from 'react';
 
 import Box from '@material-ui/core/Box';
 
 import Input from '../ui-components/input/input.component';
 import Button from '../ui-components/button/button.component';
 
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 import { Title, Subtitle, Form } from '../../pages/log-in/log-in.styles';
 import { ButtonsContainer } from '../ui-components/button/button.styles';
@@ -80,7 +80,6 @@ const SignIn = () => {
 						<Button
 							type="button"
 							googleSignIn
-							onClick={ signInWithGoogle }
 						>
 							Sign In With Google
 						</Button>
