@@ -1,4 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+const colorGoogleBlue = '#4285f4';
+const colorGoogleBlueOnHover = '#357ae8';
+
+export const ButtonsContainer = styled('div')`
+	display: flex;
+	align-items: flex-start;
+`;
 
 export const ButtonStyled = styled('button')`
 	min-width: 165px;
@@ -13,7 +21,7 @@ export const ButtonStyled = styled('button')`
   text-transform: uppercase;
   font-family: 'Open Sans Condensed';
   font-weight: bolder;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
 
   &:hover {
@@ -21,4 +29,14 @@ export const ButtonStyled = styled('button')`
     color: black;
     border: 1px solid black;
   }
+  
+  ${ ({ googleSignIn }) => googleSignIn && css`
+    background-color: ${ colorGoogleBlue };
+    
+    &:hover {
+    	color: #fff;
+    	background-color: ${ colorGoogleBlueOnHover };
+    	border-color: ${ colorGoogleBlueOnHover };
+    }
+  `}
 `;

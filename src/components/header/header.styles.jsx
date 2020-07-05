@@ -27,4 +27,5 @@ export const Options = styled('div')`
 export const Option = styled (Link)`
 	padding: 10px 20px;
   text-transform: uppercase;
+  cursor: pointer;
 `;

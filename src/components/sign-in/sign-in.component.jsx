@@ -1,11 +1,14 @@
 import React, { useReducer, useCallback } from 'react';
 
+import Box from '@material-ui/core/Box';
+
 import Input from '../ui-components/input/input.component';
 import Button from '../ui-components/button/button.component';
 
 import { signInWithGoogle } from '../../firebase/firebase.utils';
 
 import { Title, Subtitle, Form } from '../../pages/log-in/log-in.styles';
+import { ButtonsContainer } from '../ui-components/button/button.styles';
 import { SignInStyled } from './sign-in.styles';
 
 const SignIn = () => {
@@ -71,8 +74,18 @@ const SignIn = () => {
 					required
 					handleChange={ handleChange }
 				/>
-				<Button type="submit">Sign In</Button>
-				<Button type="button" onClick={ signInWithGoogle }>Sign In With Google</Button>
+				<ButtonsContainer>
+					<Button type="submit">Sign In</Button>
+					<Box ml={ 2 }>
+						<Button
+							type="button"
+							googleSignIn
+							onClick={ signInWithGoogle }
+						>
+							Sign In With Google
+						</Button>
+					</Box>
+				</ButtonsContainer>
 			</Form>
 		</SignInStyled>
 	)

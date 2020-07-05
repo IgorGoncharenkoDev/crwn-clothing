@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { Container, Grid } from '@material-ui/core';
+import { auth } from '../../firebase/firebase.utils';
 
-import { ReactComponent as Logo } from '../../assets/images/logos/crown.svg';
+import { Container, Grid } from '@material-ui/core';
 
 import { HeaderStyled, LogoContainer, Options, Option } from './header.styles';
 
-const Header = () => (
+import { ReactComponent as Logo } from '../../assets/images/logos/crown.svg';
+
+const Header = ({ currentUser }) => (
 	<HeaderStyled>
 		<Container>
 			<Grid container spacing={ 4 }>
@@ -20,7 +22,18 @@ const Header = () => (
 						<Option to="/">Home</Option>
 						<Option to="/shop">Shop</Option>
 						<Option to="/contact">Contact</Option>
-						<Option to="/log-in">Log In</Option>
+						{
+							currentUser ? (
+								<Option as="span" onClick={ () => auth.signOut() }>
+									Log Out
+								</Option>
+							) : (
+								<Option to="/log-in">
+									Log In
+								</Option>
+							)
+						}
+
 					</Options>
 				</Grid>
 			</Grid>

@@ -32,7 +32,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header/>
+      <Header currentUser={ currentUser }/>
       <Switch>
         <Route path="/" exact>
           <HomePage/>
