@@ -21,7 +21,7 @@ const App = () => {
     unsubscribeFromAuth = auth.onAuthStateChanged(async userAuthObject => {
       // user data: displayName, email
       if (userAuthObject) {
-        const userRef = createUserProfileDocument(userAuthObject);
+        const userRef = await createUserProfileDocument(userAuthObject);
 
         // listening to any changes to the data (by userRef)
         // 'snapshot' - is the first state of the data
