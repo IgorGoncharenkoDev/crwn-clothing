@@ -37,7 +37,7 @@ const App = () => {
       }
       else {
         // if a user logs out we set 'current user' to null
-        setCurrentUser({ currentUser: userAuthObject });
+        setCurrentUser(userAuthObject);
       }
     });
 
