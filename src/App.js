@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import { auth } from './firebase/firebase.utils';
+import { createUserProfileDocument } from './firebase/firebase.utils';
 
 import Header from './components/header/header.component';
 import HomePage from './pages/home/home.component';
@@ -18,10 +19,14 @@ const App = () => {
   useEffect(() => {
 
     // subscription
-    unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+    unsubscribeFromAuth = auth.onAuthStateChanged(async userAuthObject => {
       // user:
       // displayName, email
-      setCurrentUser(user);
+      setCurrentUser(userAuthObject);
+
+      console.log('App =>', userAuthObject)
+
+      createUserProfileDocument(userAuthObject);
     });
 
     // is triggered on unmount

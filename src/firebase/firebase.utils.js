@@ -13,6 +13,38 @@ export const config = {
 	appId: "1:386616038619:web:3ca817973b34427975e8fe"
 };
 
+export const createUserProfileDocument = async (userAuthObject, otherData) => {
+	if (!userAuthObject) return false;
+
+	// querying a user using the 'user uid' which we get from the userAuth object
+	const userRef = firestore.doc(`users/${ userAuthObject.uid }`);
+	const snapshot = await userRef.get();
+
+	console.log(snapshot)
+
+	// checking if the the logged-in user already exists in the database
+	// and if the user does not exist we want to set the user into the database
+	if (!snapshot.exists) {
+		const { displayName, email } = userAuthObject;
+		const createAt = new Date();
+
+		// this code below creates a Snapshot (data)
+		try {
+			await userRef.set({
+				displayName,
+				email,
+				createAt,
+				...otherData
+			});
+		}
+		catch (err) {
+			console.log('Error when creating a new user:', err.message);
+		}
+	}
+
+	return userRef;
+};
+
 // initializing firebase with the provided config
 firebase.initializeApp(config);
 
