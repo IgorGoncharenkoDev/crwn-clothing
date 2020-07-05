@@ -6,6 +6,7 @@ import Input from '../ui-components/input/input.component';
 import Button from '../ui-components/button/button.component';
 
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { signInWithGoogle } from '../../firebase/firebase.utils';
 
 import { Title, Subtitle, Form } from '../../pages/log-in/log-in.styles';
 import { ButtonsContainer } from '../ui-components/button/button.styles';
@@ -37,8 +38,15 @@ const SignIn = () => {
 
 	const { email, password } = formState;
 
-	const handleSubmit = e => {
+	const handleSubmit = async e => {
 		e.preventDefault();
+
+		try {
+			await auth.signInWithEmailAndPassword(email, password)
+		}
+		catch (err) {
+			console.log('Error when trying to log in with email and password:', err.message);
+		}
 	};
 
 	const handleChange = e => {
@@ -80,6 +88,7 @@ const SignIn = () => {
 						<Button
 							type="button"
 							googleSignIn
+							onClick={ signInWithGoogle }
 						>
 							Sign In With Google
 						</Button>

@@ -23,9 +23,6 @@ const Header = ({ currentUser }) => (
 						<Option to="/shop">Shop</Option>
 						<Option to="/contact">Contact</Option>
 						{
-							console.log('CURRENT USER =>', currentUser)
-						}
-						{
 							currentUser ? (
 								<Option as="span" onClick={ () => auth.signOut() }>
 									Log Out
