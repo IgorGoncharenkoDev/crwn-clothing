@@ -4,7 +4,7 @@ import { ButtonStyled } from './button.styles';
 
 const Button = ({ children, ...buttonProps }) => {
 	return (
-		<ButtonStyled>
+		<ButtonStyled { ...buttonProps }>
 			{ children }
 		</ButtonStyled>
 	)

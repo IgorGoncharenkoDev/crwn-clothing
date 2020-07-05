@@ -3,6 +3,8 @@ import React, { useReducer, useCallback } from 'react';
 import Input from '../ui-components/input/input.component';
 import Button from '../ui-components/button/button.component';
 
+import { signInWithGoogle } from '../../firebase/firebase.utils';
+
 import { Title, Subtitle, Form } from '../../pages/log-in/log-in.styles';
 import { SignInStyled } from './sign-in.styles';
 
@@ -70,6 +72,7 @@ const SignIn = () => {
 					handleChange={ handleChange }
 				/>
 				<Button type="submit">Sign In</Button>
+				<Button type="button" onClick={ signInWithGoogle }>Sign In With Google</Button>
 			</Form>
 		</SignInStyled>
 	)
