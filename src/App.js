@@ -17,16 +17,28 @@ const App = () => {
   let unsubscribeFromAuth = null;
 
   useEffect(() => {
-
     // subscription
     unsubscribeFromAuth = auth.onAuthStateChanged(async userAuthObject => {
-      // user:
-      // displayName, email
-      setCurrentUser(userAuthObject);
+      // user data: displayName, email
+      if (userAuthObject) {
+        const userRef = createUserProfileDocument(userAuthObject);
 
-      console.log('App =>', userAuthObject)
-
-      createUserProfileDocument(userAuthObject);
+        // listening to any changes to the data (by userRef)
+        // 'snapshot' - is the first state of the data
+        await userRef.onSnapshot(snapshot => {
+          // setting state of our local App with the snapshot id and the snapshot data
+          setCurrentUser({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data()
+            }
+          });
+        });
+      }
+      else {
+        // if a user logs out we set 'current user' to null
+        setCurrentUser({ currentUser: userAuthObject });
+      }
     });
 
     // is triggered on unmount
