@@ -61,7 +61,7 @@ const App = ({ currentUser, setCurrentUser }) => {
         ) : (
           <LogInPage/>
         ) }/>
-      </Switch>
+      </Switch>c
     </div>
   )
 };

@@ -1,10 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import Button from '../ui-components/button/button.component';
 
-export const CollectionItemStyled = styled('div')`
-	width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+export const AddToCartButton = styled(Button)`
+	position: absolute;
+	bottom: 50px;
+	width: 80%;
+	display: none;
+	opacity: .7;
 `;
 
 export const ImageContainer = styled('img')`
@@ -13,6 +15,25 @@ export const ImageContainer = styled('img')`
   background-size: cover;
   background-position: center;
   margin-bottom: 5px;
+`;
+
+export const CollectionItemStyled = styled('div')`
+	position: relative;
+	width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  &:hover {
+  	${ ImageContainer } {
+  		opacity: .8;
+  	}
+  
+  	${ AddToCartButton } {
+  		display: flex;
+  		opacity: .85;
+  	}
+  }
 `;
 
 export const Footer = styled('footer')`

@@ -16,9 +16,9 @@ const CollectionPreview = ({ title = 'Collection Preview Title', items = [] }) =
 				<Grid item xs={ 12 }>
 					<Grid container spacing={ 4 }>
 						{
-							items.filter((item, i) => i < 4).map(({ id, ...collectionProps }) => (
-								<Grid item xs={ 6 } md={ 3 } key={ id }>
-									<CollectionItem { ...collectionProps }/>
+							items.filter((item, i) => i < 4).map(item => (
+								<Grid item xs={ 6 } md={ 3 } key={ item.id }>
+									<CollectionItem item={ item }/>
 								</Grid>
 							))
 						}

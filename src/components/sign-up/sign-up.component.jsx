@@ -117,7 +117,7 @@ const SignUp = () => {
 					handleChange={ handleChange }
 				/>
 				<ButtonsContainer>
-					<Button type="submit">Sign Up</Button>
+					<Button type="submit" uppercase>Sign Up</Button>
 				</ButtonsContainer>
 			</Form>
 		</SignUpStyled>

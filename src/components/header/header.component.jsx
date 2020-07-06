@@ -25,7 +25,7 @@ const Header = ({ currentUser, hidden }) => (
 					<Options>
 						<Option to="/">Home</Option>
 						<Option to="/shop">Shop</Option>
-						<Option to="/contact">Contact</Option>
+						<Option to="/">Contact</Option>
 						{
 							currentUser ? (
 								<Option as="span" onClick={ () => auth.signOut() }>

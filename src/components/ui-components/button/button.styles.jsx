@@ -9,6 +9,9 @@ export const ButtonsContainer = styled('div')`
 `;
 
 export const ButtonStyled = styled('button')`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 	min-width: 165px;
   width: auto;
   height: 50px;
@@ -18,7 +21,6 @@ export const ButtonStyled = styled('button')`
   font-size: 15px;
   background-color: black;
   color: white;
-  text-transform: uppercase;
   font-family: 'Open Sans Condensed';
   font-weight: bolder;
   border: 1px solid transparent;
@@ -30,6 +32,10 @@ export const ButtonStyled = styled('button')`
     border: 1px solid black;
   }
   
+  ${ ({ uppercase }) => uppercase && css`
+    text-transform: uppercase;
+  `}
+  
   ${ ({ googleSignIn }) => googleSignIn && css`
     background-color: ${ colorGoogleBlue };
     
@@ -37,6 +43,18 @@ export const ButtonStyled = styled('button')`
     	color: #fff;
     	background-color: ${ colorGoogleBlueOnHover };
     	border-color: ${ colorGoogleBlueOnHover };
+    }
+  `}
+  
+  ${ ({ inverted }) => inverted && css`
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+
+    &:hover {
+      background-color: black;
+      color: white;
+      border: none;
     }
   `}
 `;

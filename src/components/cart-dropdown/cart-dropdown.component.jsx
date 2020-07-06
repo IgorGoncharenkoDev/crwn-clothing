@@ -11,7 +11,7 @@ const CartDropdown = () => (
 	<CartDropdownStyled>
 		<CartItems>1</CartItems>
 		<Box mt="auto" mx="auto">
-			<Button>Go To Checkout</Button>
+			<Button uppercase>Go To Checkout</Button>
 		</Box>
 	</CartDropdownStyled>
 );

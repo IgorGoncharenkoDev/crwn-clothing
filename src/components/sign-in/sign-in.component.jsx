@@ -83,11 +83,12 @@ const SignIn = () => {
 					handleChange={ handleChange }
 				/>
 				<ButtonsContainer>
-					<Button type="submit">Sign In</Button>
+					<Button type="submit" uppercase>Sign In</Button>
 					<Box ml={ 2 }>
 						<Button
 							type="button"
 							googleSignIn
+							uppercase
 							onClick={ signInWithGoogle }
 						>
 							Sign In With Google
