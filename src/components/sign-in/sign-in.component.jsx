@@ -65,7 +65,7 @@ const SignIn = () => {
 
 			<Form onSubmit={ handleSubmit }>
 				<Input
-					id="email"
+					id="signInEmail"
 					type="email"
 					name="email"
 					label="Email"
@@ -74,7 +74,7 @@ const SignIn = () => {
 					handleChange={ handleChange }
 				/>
 				<Input
-					id="password"
+					id="signInPassword"
 					type="password"
 					name="password"
 					label="Password"

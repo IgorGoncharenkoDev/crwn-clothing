@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { setCurrentUser } from './redux/user/user.actions';
 
 import { auth } from './firebase/firebase.utils';
 import { createUserProfileDocument } from './firebase/firebase.utils';
@@ -11,9 +14,7 @@ import LogInPage from './pages/log-in/log-in.component';
 
 import './styles/styles.scss';
 
-const App = () => {
-  const [currentUser, setCurrentUser] = useState(null);
-
+const App = ({ setCurrentUser }) => {
   let unsubscribeFromAuth = null;
 
   useEffect(() => {
@@ -28,10 +29,8 @@ const App = () => {
         await userRef.onSnapshot(snapshot => {
           // setting state of our local App with the snapshot id and the snapshot data
           setCurrentUser({
-            currentUser: {
-              id: snapshot.id,
-              ...snapshot.data()
-            }
+            id: snapshot.id,
+            ...snapshot.data()
           });
         });
       }
@@ -49,7 +48,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header currentUser={ currentUser }/>
+      <Header/>
       <Switch>
         <Route path="/" exact>
           <HomePage/>
@@ -65,4 +64,8 @@ const App = () => {
   )
 };
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: userObject => dispatch(setCurrentUser(userObject))
+});
+
+export default connect(null, mapDispatchToProps)(App);
