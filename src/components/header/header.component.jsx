@@ -2,16 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 import { auth } from '../../firebase/firebase.utils';
 
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid, Box } from '@material-ui/core';
 
 import { HeaderStyled, LogoContainer, Options, Option } from './header.styles';
 
 import { ReactComponent as Logo } from '../../assets/images/logos/crown.svg';
 
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, hidden }) => (
 	<HeaderStyled>
 		<Container>
 			<Grid container spacing={ 4 }>
@@ -40,15 +41,22 @@ const Header = ({ currentUser }) => (
 					</Options>
 				</Grid>
 				<Grid item xs="auto">
-					<CartIcon/>
+					<Box position="relative">
+						<React.Fragment>
+							<CartIcon/>
+							{
+								hidden || <CartDropdown/>
+							}
+						</React.Fragment>
+					</Box>
 				</Grid>
 			</Grid>
 		</Container>
 	</HeaderStyled>
 );
 
-const mapStateToProps = state => ({
-	currentUser: state.user.currentUser
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+	currentUser, hidden
 });
 
 export default connect(mapStateToProps)(Header);
