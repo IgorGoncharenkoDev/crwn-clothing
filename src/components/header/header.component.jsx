@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import CartIcon from '../cart-icon/cart-icon.component';
+
 import { auth } from '../../firebase/firebase.utils';
 
 import { Container, Grid } from '@material-ui/core';
@@ -36,6 +38,9 @@ const Header = ({ currentUser }) => (
 						}
 
 					</Options>
+				</Grid>
+				<Grid item xs="auto">
+					<CartIcon/>
 				</Grid>
 			</Grid>
 		</Container>
