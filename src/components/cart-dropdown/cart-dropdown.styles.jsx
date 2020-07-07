@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const CartDropdownStyled = styled('div')`
 	position: absolute;
   width: 240px;
-  height: 340px;
+  height: 360px;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -15,7 +15,7 @@ export const CartDropdownStyled = styled('div')`
 `;
 
 export const CartItems = styled('div')`
-	height: 240px;
+	height: 260px;
   display: flex;
   flex-direction: column;
   overflow: auto;
