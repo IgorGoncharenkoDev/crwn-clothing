@@ -14,6 +14,14 @@ export const CartDropdownStyled = styled('div')`
   z-index: 5;
 `;
 
+export const EmptyMessage = styled('div')`
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+`;
+
 export const CartItems = styled('div')`
 	height: 260px;
   display: flex;

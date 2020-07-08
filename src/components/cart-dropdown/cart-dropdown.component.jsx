@@ -3,22 +3,33 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { selectCartItems } from '../../redux/cart/cart.selectors';
+import { toggleCartDropdown } from '../../redux/cart/cart.actions';
 
 import { Box } from '@material-ui/core';
 import CartItem from '../cart-item/cart-item.component';
 import Button from '../ui-components/button/button.component';
 
-import { CartDropdownStyled, CartItems } from './cart-dropdown.styles';
+import { CartDropdownStyled, EmptyMessage, CartItems } from './cart-dropdown.styles';
 
-const CartDropdown = ({ cartItems }) => (
+const CartDropdown = ({ cartItems, dispatch }) => (
 	<CartDropdownStyled>
 		<CartItems>
 			{
-				cartItems.map(cartItem => <CartItem key={ cartItem.id } { ...cartItem }/>)
+				!cartItems.length ? (
+					<EmptyMessage>Your cart is empty</EmptyMessage>
+				) : (
+					cartItems.map(cartItem => <CartItem key={ cartItem.id } { ...cartItem }/>)
+				)
 			}
 		</CartItems>
 		<Box mt="auto" mx="auto">
-			<Button uppercase>Go To Checkout</Button>
+			<Button
+				to="/checkout"
+				uppercase="true"
+				onClick={ () => dispatch(toggleCartDropdown()) }
+			>
+				Go To Checkout
+			</Button>
 		</Box>
 	</CartDropdownStyled>
 );

@@ -5,6 +5,8 @@ import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCartDropdownHidden } from '../../redux/cart/cart.selectors';
 
+import { toggleCartDropdown } from '../../redux/cart/cart.actions';
+
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
@@ -16,7 +18,7 @@ import { HeaderStyled, LogoContainer, Options, Option } from './header.styles';
 
 import { ReactComponent as Logo } from '../../assets/images/logos/crown.svg';
 
-const Header = ({ currentUser, hidden }) => (
+const Header = ({ currentUser, hidden, toggleCartDropdown }) => (
 	<HeaderStyled>
 		<Container>
 			<Grid container spacing={ 4 }>
@@ -27,16 +29,18 @@ const Header = ({ currentUser, hidden }) => (
 				</Grid>
 				<Grid item xs="auto" style={{marginLeft: 'auto' }}>
 					<Options>
-						<Option to="/">Home</Option>
-						<Option to="/shop">Shop</Option>
-						<Option to="/">Contact</Option>
+						<Option to="/" onClick={ () => { !hidden && toggleCartDropdown() } }>Home</Option>
+						<Option to="/shop" onClick={ () => { !hidden && toggleCartDropdown() } }>Shop</Option>
+						<Option to="/" onClick={ () => { !hidden && toggleCartDropdown() } }>Contact</Option>
 						{
 							currentUser ? (
-								<Option as="span" onClick={ () => auth.signOut() }>
+								<Option
+									as="span"
+									onClick={ () => { auth.signOut(); !hidden &&  toggleCartDropdown(); } }>
 									Log Out
 								</Option>
 							) : (
-								<Option to="/log-in">
+								<Option to="/log-in" onClick={ () => { !hidden && toggleCartDropdown() } }>
 									Log In
 								</Option>
 							)
@@ -64,4 +68,8 @@ const mapStateToProps = createStructuredSelector({
 	hidden: selectCartDropdownHidden
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch => ({
+	toggleCartDropdown: () => dispatch(toggleCartDropdown())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

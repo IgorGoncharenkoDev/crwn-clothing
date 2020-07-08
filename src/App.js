@@ -9,10 +9,12 @@ import { setCurrentUser } from './redux/user/user.actions';
 import { auth } from './firebase/firebase.utils';
 import { createUserProfileDocument } from './firebase/firebase.utils';
 
-import Header from './components/header/header.component';
 import HomePage from './pages/home/home.component';
 import ShopPage from './pages/shop/shop.component';
 import LogInPage from './pages/log-in/log-in.component';
+import CheckoutPage from './pages/checkout/checkout.component';
+
+import Header from './components/header/header.component';
 
 import './styles/styles.scss';
 
@@ -52,11 +54,14 @@ const App = ({ currentUser, setCurrentUser }) => {
     <div className="App">
       <Header/>
       <Switch>
-        <Route path="/" exact>
+        <Route exact path="/">
           <HomePage/>
         </Route>
         <Route path="/shop">
           <ShopPage/>
+        </Route>
+        <Route exact path="/checkout">
+          <CheckoutPage/>
         </Route>
         <Route exact render={ () => currentUser ? (
           <Redirect to="/"/>
