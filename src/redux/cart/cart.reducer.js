@@ -18,7 +18,7 @@ const dummyData = [{
 
 const INITIAL_STATE = {
 	hidden: true,
-	cartItems: dummyData
+	cartItems: []
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {
