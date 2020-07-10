@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -54,21 +54,15 @@ const App = ({ currentUser, setCurrentUser }) => {
     <div className="App">
       <Header/>
       <Switch>
-        <Route exact path="/">
-          <HomePage/>
-        </Route>
-        <Route path="/shop">
-          <ShopPage/>
-        </Route>
-        <Route exact path="/checkout">
-          <CheckoutPage/>
-        </Route>
+        <Route exact path="/" component={ HomePage }/>
+        <Route path="/shop" component={ ShopPage }/>
+        <Route exact path="/checkout" component={ CheckoutPage }/>
         <Route exact render={ () => currentUser ? (
           <Redirect to="/"/>
         ) : (
           <LogInPage/>
         ) }/>
-      </Switch>c
+      </Switch>
     </div>
   )
 };

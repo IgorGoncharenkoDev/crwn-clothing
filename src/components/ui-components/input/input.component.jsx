@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormControl, Label, InputStyled, TextareaStyled } from './input.style';
+import { FormControl, Label, InputStyled } from './input.style';
 
 const Input = ({ id, label, value, handleChange, ...inputProps }) => {
 	return (

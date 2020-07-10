@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Route } from 'react-router-dom';
 
 import { Container, Grid } from '@material-ui/core';
 
-import CollectionPreview from '../../components/collection-preview/collection-preview.component';
-
-import SHOP_DATA from '../../data/shop.data';
+import CollectionPage from '../collection/collection.component';
+import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
 
 import { ShopPageStyled } from './shop.styles';
 
-const ShopPage = () => {
-	const [collections, setCollections] = useState([]);
-
-	useEffect(() => setCollections(SHOP_DATA), []);
-
+const ShopPage = ({ match }) => {
 	return (
 		<ShopPageStyled>
 			<Container maxWidth="lg">
@@ -21,11 +17,8 @@ const ShopPage = () => {
 						<h1>Collections</h1>
 					</Grid>
 					<Grid item xs={ 12 }>
-						{
-							collections.map(({ id, ...collectionPreviewProps}) => (
-								<CollectionPreview key={ id } {...collectionPreviewProps} />
-							))
-						}
+						<Route exact path={ `${ match.path }` } component={ CollectionsOverview }/>
+						<Route path={ `${ match.path }/:collectionId` } component={ CollectionPage }/>
 					</Grid>
 				</Grid>
 			</Container>

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Button from '../ui-components/button/button.component';
 
 export const AddToCartButton = styled(Button)`

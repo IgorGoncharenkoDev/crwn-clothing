@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Input from '../ui-components/input/input.component';
 import Button from '../ui-components/button/button.component';
 
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { auth } from '../../firebase/firebase.utils';
 import { signInWithGoogle } from '../../firebase/firebase.utils';
 
 import { Title, Subtitle, Form } from '../../pages/log-in/log-in.styles';
