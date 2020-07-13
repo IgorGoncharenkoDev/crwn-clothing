@@ -7,8 +7,9 @@ import { Container, Grid, Box } from '@material-ui/core';
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
 
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
+import StripeCheckoutButton from '../../components/stripe-button/stripe-button.component';
 
-import { CheckoutStyled, HeaderCell, Header, Total } from './checkout.styles';
+import { CheckoutStyled, HeaderCell, Header, Total, TestCreditCardMessage } from './checkout.styles';
 
 const CheckoutPage = ({ cartItems, total }) => (
 	<CheckoutStyled>
@@ -43,7 +44,18 @@ const CheckoutPage = ({ cartItems, total }) => (
 					</Box>
 				</Grid>
 				<Grid item xs={ 12 }>
-
+					<Box py={ 3 }>
+						<TestCreditCardMessage>
+							Please, use the following test credit card for payments*
+							<br/>
+							4242 4242 4242 4242 - Exp: 01/22 - CVV: 123
+						</TestCreditCardMessage>
+					</Box>
+				</Grid>
+				<Grid item xs={ 12 }>
+					<Box display="flex" justifyContent="flex-end">
+						<StripeCheckoutButton price={ total }/>
+					</Box>
 				</Grid>
 			</Grid>
 		</Container>

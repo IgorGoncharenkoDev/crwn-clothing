@@ -29,3 +29,9 @@ export const HeaderCell = styled('div')`
 export const Total = styled('div')`
 	font-size: 36px;
 `;
+
+export const TestCreditCardMessage = styled('p')`
+	font-size: 22px;
+	color: red;
+	text-align: center;
+`;
