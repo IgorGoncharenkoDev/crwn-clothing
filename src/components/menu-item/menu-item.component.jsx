@@ -3,12 +3,12 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 
 import { MenuItemStyled, BackgroundImage, Content, Title, SubTitle } from './menu-item.styles';
 
-const MenuItem = ({ title = 'Menu Item Title', imageUrl, size, routeName }) => {
+const MenuItem = ({ title = 'Menu Item Title', imageUrl, size, linkUrl }) => {
 	let history = useHistory(),
 	    match   = useRouteMatch();
 
 	return (
-		<MenuItemStyled size={ size } onClick={ () => history.push(`${ match.url }${ routeName }`) }>
+		<MenuItemStyled size={ size } onClick={ () => history.push(`${ match.url }${ linkUrl }`) }>
 			<BackgroundImage style={ { backgroundImage: `url('${ imageUrl }')` } }/>
 			<Content>
 				<Title>{ title }</Title>

@@ -1,8 +1,7 @@
-const SHOP_DATA = [
-	{
+const SHOP_DATA = {
+	hats: {
 		id: 1,
 		title: 'Hats',
-		imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
 		routeName: 'hats',
 		items: [
 			{
@@ -61,10 +60,9 @@ const SHOP_DATA = [
 			}
 		]
 	},
-	{
+	sneakers: {
 		id: 2,
 		title: 'Sneakers',
-		imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
 		routeName: 'sneakers',
 		items: [
 			{
@@ -117,10 +115,9 @@ const SHOP_DATA = [
 			}
 		]
 	},
-	{
+	jackets: {
 		id: 3,
 		title: 'Jackets',
-		imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
 		routeName: 'jackets',
 		items: [
 			{
@@ -155,10 +152,9 @@ const SHOP_DATA = [
 			}
 		]
 	},
-	{
+	womens: {
 		id: 4,
 		title: 'Womens',
-		imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
 		routeName: 'womens',
 		items: [
 			{
@@ -205,10 +201,9 @@ const SHOP_DATA = [
 			}
 		]
 	},
-	{
+	mens: {
 		id: 5,
 		title: 'Mens',
-		imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
 		routeName: 'mens',
 		items: [
 			{
@@ -249,6 +244,6 @@ const SHOP_DATA = [
 			}
 		]
 	}
-];
+};
 
 export default SHOP_DATA;

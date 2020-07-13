@@ -1,7 +1,7 @@
-import SHOP_DATA from '../../data/shop.data';
+import SECTIONS_DATA from '../../data/sections.data';
 
 const INITIAL_STATE = {
-	sections: SHOP_DATA
+	sections: SECTIONS_DATA
 };
 
 const directoryReducer = (state = INITIAL_STATE, action) => {
