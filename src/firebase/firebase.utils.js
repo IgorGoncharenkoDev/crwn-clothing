@@ -13,6 +13,9 @@ export const config = {
 	appId: "1:386616038619:web:3ca817973b34427975e8fe"
 };
 
+// initializing firebase with the provided config
+firebase.initializeApp(config);
+
 export const createUserProfileDocument = async (userAuthObject, otherData) => {
 	if (!userAuthObject) return false;
 
@@ -45,8 +48,24 @@ export const createUserProfileDocument = async (userAuthObject, otherData) => {
 	return userRef;
 };
 
-// initializing firebase with the provided config
-firebase.initializeApp(config);
+export const addCollectionAndDocuments = async (collectionName, itemsToAddToCollection) => {
+	const collectionRef = firestore.collection(collectionName);
+
+	// getting access to 'batch' object
+	const batch = firestore.batch();
+
+	itemsToAddToCollection.forEach(item => {
+		// creating a new doc reference in the current collection with a randomly generated 'id' for the doc
+		const newDocRef = collectionRef.doc();
+
+		// setting the value using the newDocRef
+		// but this time we are not using .set()
+		// instead we are using: batch.set(newDocumentReference, itemToSet)
+		batch.set(newDocRef, item);
+	});
+
+	return await batch.commit();
+};
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

@@ -6,8 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { setCurrentUser } from './redux/user/user.actions';
 
-import { auth } from './firebase/firebase.utils';
-import { createUserProfileDocument } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import HomePage from './pages/home/home.component';
 import ShopPage from './pages/shop/shop.component';
@@ -42,6 +41,11 @@ const App = ({ currentUser, setCurrentUser }) => {
         // if a user logs out we set 'current user' to null
         setCurrentUser(userAuthObject);
       }
+
+      // addCollectionAndDocuments(
+      //   'collections',
+      //   collectionsArray.map(({ title, items }) => ({ title, items}))
+      // );
     });
 
     // is triggered on unmount

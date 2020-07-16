@@ -21,7 +21,7 @@ export const ButtonStyled = styled('button')`
   font-size: 15px;
   background-color: black;
   color: white;
-  font-family: 'Open Sans Condensed';
+  font-family: 'Open Sans Condensed', sans-serif;
   font-weight: bolder;
   border: 1px solid transparent;
   cursor: pointer;
