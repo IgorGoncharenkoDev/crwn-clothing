@@ -1,14 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
+import { connect} from 'react-redux';
 
 import { Container, Grid } from '@material-ui/core';
 
 import CollectionPage from '../collection/collection.component';
 import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
 
+import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/firebase.utils';
+
+import { updateCollections } from '../../redux/shop/shop.actions';
+
 import { ShopPageStyled } from './shop.styles';
 
-const ShopPage = ({ match }) => {
+const ShopPage = ({ match, dispatch }) => {
+	useEffect(() => {
+		let unsubscribeFromSnapShot = null;
+
+		const collectionRef = firestore.collection('collections');
+
+		// whenever the collectionRef gets updated or
+		// whenever this code runs for the first time
+		// the collectionRef will send us the snapshot
+		// representing the code of our 'collections'-objects array
+		collectionRef.onSnapshot(async snapshot => {
+			const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+			dispatch(updateCollections(collectionsMap));
+		});
+
+		return () => {
+			unsubscribeFromSnapShot();
+		};
+	}, []);
+
 	return (
 		<ShopPageStyled>
 			<Container maxWidth="lg">
@@ -26,4 +50,4 @@ const ShopPage = ({ match }) => {
 	);
 };
 
-export default ShopPage;
+export default connect()(ShopPage);
