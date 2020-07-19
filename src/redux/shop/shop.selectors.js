@@ -20,9 +20,10 @@ export const selectCollections = createSelector(
 export const selectCollection = memoize(collectionUrlParam => {
 	return createSelector(
 		[selectCollections],
-		collections =>
+		collections => collections ?
 			// IF DATA IS NORMALIZED:
 			collections[collectionUrlParam]
+			: null
 
 			// IF DATA IS NOT NORMALIZED:
 			// find the collection by:
@@ -33,9 +34,9 @@ export const selectCollection = memoize(collectionUrlParam => {
 
 export const selectCollectionsForPreview = createSelector(
 	[selectCollections],
-	collections => Object.keys(collections).map(
-		collection => collections[collection]
-	)
+	collections => collections ? Object.keys(collections).map(
+		collection => collections[collection])
+		: []
 
 	// collections => Object.values(collections)
 );
