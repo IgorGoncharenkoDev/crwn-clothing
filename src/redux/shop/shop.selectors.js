@@ -45,3 +45,9 @@ export const selectIsCollectionFetching = createSelector(
 	[selectShop],
 	shop => shop.isFetching
 );
+
+// checking whether or not the collection is 'null' or not
+export const selectIsCollectionsLoaded = createSelector(
+	[selectShop],
+	shop => !!shop.collections
+);
