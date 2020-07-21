@@ -5,20 +5,14 @@ import { connect } from 'react-redux';
 
 import { Container, Grid } from '@material-ui/core';
 
-import CollectionPage from '../collection/collection.component';
-import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
-
-import WithSpinner from '../../hocs/with-spinner/with-spinner.component';
+import CollectionPageContainer from '../collection/collection.container';
+import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
 
 import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
-import { selectIsCollectionFetching, selectIsCollectionsLoaded } from '../../redux/shop/shop.selectors';
 
 import { ShopPageStyled } from './shop.styles';
 
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
-const CollectionPageWithSpinner = WithSpinner(CollectionPage);
-
-const ShopPage = ({ match, isCollectionFetching, selectIsCollectionsLoaded, dispatch }) => {
+const ShopPage = ({ match, dispatch }) => {
 	useEffect(() => {
 		dispatch(fetchCollectionsStartAsync());
 	}, [dispatch]);
@@ -28,18 +22,8 @@ const ShopPage = ({ match, isCollectionFetching, selectIsCollectionsLoaded, disp
 			<Container maxWidth="lg">
 				<Grid container spacing={ 0 }>
 					<Grid item xs={ 12 }>
-						<h1>Collections</h1>
-					</Grid>
-					<Grid item xs={ 12 }>
-						<Route
-							exact
-							path={ `${ match.path }` }
-							render={ props => <CollectionsOverviewWithSpinner isLoading={ !selectIsCollectionsLoaded } { ...props }/> }
-						/>
-						<Route
-							path={ `${ match.path }/:collectionId` }
-							render={ props => <CollectionPageWithSpinner isLoading={ !selectIsCollectionsLoaded } { ...props } /> }
-						/>
+						<Route exact path={ `${ match.path }` } component={ CollectionsOverviewContainer }/>
+						<Route path={ `${ match.path }/:collectionId` } component={ CollectionPageContainer }/>
 					</Grid>
 				</Grid>
 			</Container>
@@ -47,9 +31,4 @@ const ShopPage = ({ match, isCollectionFetching, selectIsCollectionsLoaded, disp
 	);
 };
 
-const mapStateToProps = createStructuredSelector({
-	isCollectionFetching: selectIsCollectionFetching,
-	selectIsCollectionsLoaded: selectIsCollectionsLoaded
-});
-
-export default connect(mapStateToProps)(ShopPage);
+export default connect()(ShopPage);
