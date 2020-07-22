@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
-import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
 import { Container, Grid } from '@material-ui/core';
@@ -8,13 +7,13 @@ import { Container, Grid } from '@material-ui/core';
 import CollectionPageContainer from '../collection/collection.container';
 import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
 
-import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
+import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 
 import { ShopPageStyled } from './shop.styles';
 
 const ShopPage = ({ match, dispatch }) => {
 	useEffect(() => {
-		dispatch(fetchCollectionsStartAsync());
+		dispatch(fetchCollectionsStart());
 	}, [dispatch]);
 
 	return (
