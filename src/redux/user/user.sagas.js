@@ -1,6 +1,11 @@
 import { takeLatest, all, put, call } from 'redux-saga/effects';
 
-import { auth, googleProvider, createUserProfileDocument } from '../../firebase/firebase.utils';
+import {
+	auth,
+	googleProvider,
+	createUserProfileDocument,
+	getCurrentUser
+} from '../../firebase/firebase.utils';
 
 import UserActionTypes from './user.types';
 
@@ -21,8 +26,6 @@ export function* getSnapshotFromUserAuth (userAuth) {
 
 export function* signInWithGoogle () {
 	try {
-		// getting userRef
-		// (since we want to access the value that gets returned when .signInWithPopup() is successful)
 		const userAuth = yield auth.signInWithPopup(googleProvider);
 
 		yield getSnapshotFromUserAuth(userAuth);
@@ -43,6 +46,20 @@ export function* signInWithEmailAndPassword ({ payload: { email, password } }) {
 	}
 }
 
+export function* isUserAuthenticated () {
+	try {
+		const userAuth = yield getCurrentUser();
+
+		if (!userAuth) return;
+
+		yield getSnapshotFromUserAuth(userAuth);
+	}
+	catch (error) {
+		yield put(signInFailure(error));
+	}
+
+}
+
 export function* onGoogleSignInStart () {
 	yield takeLatest(
 		UserActionTypes.GOOGLE_SIGN_IN_START,
@@ -57,9 +74,17 @@ export function* onEmailSignInStart () {
 	);
 }
 
+export function* onCheckUserSession () {
+	yield takeLatest(
+		UserActionTypes.CHECK_USER_SESSION,
+		isUserAuthenticated
+	)
+}
+
 export function* userSagas () {
 	yield all([
 		call(onGoogleSignInStart),
-		call(onEmailSignInStart)
+		call(onEmailSignInStart),
+		call(onCheckUserSession)
 	]);
 }

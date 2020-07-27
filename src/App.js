@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectCurrentUser } from './redux/user/user.selectors';
 
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { checkUserSession } from './redux/user/user.actions';
 
 import HomePage from './pages/home/home.component';
 import ShopPage from './pages/shop/shop.component';
@@ -16,10 +16,12 @@ import Header from './components/header/header.component';
 
 import './styles/styles.scss';
 
-const App = ({ currentUser }) => {
+const App = ({ currentUser, checkUserSession }) => {
   let unsubscribeFromAuth = null;
 
   useEffect(() => {
+    checkUserSession();
+
     /*
     // subscription
     unsubscribeFromAuth = auth.onAuthStateChanged(async userAuthObject => {
@@ -76,4 +78,8 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
