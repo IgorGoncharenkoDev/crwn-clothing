@@ -6,14 +6,13 @@ import Box from '@material-ui/core/Box';
 import Input from '../ui-components/input/input.component';
 import Button from '../ui-components/button/button.component';
 
-import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
-import { googleSignInStart } from '../../redux/user/user.actions';
+import { googleSignInStart, emailSignInStart } from '../../redux/user/user.actions';
 
 import { Title, Subtitle, Form } from '../../pages/log-in/log-in.styles';
 import { ButtonsContainer } from '../ui-components/button/button.styles';
 import { SignInStyled } from './sign-in.styles';
 
-const SignIn = ({ googleSignInStart }) => {
+const SignIn = ({ googleSignInStart, emailSignInStart }) => {
 	const INITIAL_STATE = {
 		email: '',
 		password: ''
@@ -42,12 +41,7 @@ const SignIn = ({ googleSignInStart }) => {
 	const handleSubmit = async e => {
 		e.preventDefault();
 
-		try {
-			await auth.signInWithEmailAndPassword(email, password)
-		}
-		catch (err) {
-			console.log('Error when trying to log in with email and password:', err.message);
-		}
+		emailSignInStart(email, password);
 	};
 
 	const handleChange = e => {
@@ -102,7 +96,8 @@ const SignIn = ({ googleSignInStart }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-	googleSignInStart: () => dispatch(googleSignInStart())
+	googleSignInStart: () => dispatch(googleSignInStart()),
+	emailSignInStart: (email, password) => dispatch(emailSignInStart({ email, password }))
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);

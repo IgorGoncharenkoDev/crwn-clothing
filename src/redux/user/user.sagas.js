@@ -4,7 +4,10 @@ import { auth, googleProvider, createUserProfileDocument } from '../../firebase/
 
 import UserActionTypes from './user.types';
 
-import { googleSignInSuccess, googleSignInFailure } from './user.actions';
+import {
+	googleSignInSuccess, googleSignInFailure,
+	emailSignInSuccess, emailSignInFailure
+} from './user.actions';
 
 export function* signInWithGoogle () {
 	try {
@@ -28,6 +31,26 @@ export function* signInWithGoogle () {
 	}
 }
 
+export function* signInWithEmailAndPassword ({ payload: { email, password } }) {
+	try {
+		const userDocRef = yield auth.signInWithEmailAndPassword(email, password);
+
+		const { user } = userDocRef;
+
+		const userRef = yield call(createUserProfileDocument, user);
+
+		const userSnapshot = yield userRef.get();
+
+		yield put(emailSignInSuccess({
+			id: userSnapshot.id,
+			...userSnapshot.data()
+		}));
+	}
+	catch (error) {
+		yield put(emailSignInFailure(error));
+	}
+}
+
 export function* onGoogleSignInStart () {
 	yield takeLatest(
 		UserActionTypes.GOOGLE_SIGN_IN_START,
@@ -35,8 +58,16 @@ export function* onGoogleSignInStart () {
 	);
 }
 
+export function* onEmailSignInStart () {
+	yield takeLatest(
+		UserActionTypes.EMAIL_SIGN_IN_START,
+		signInWithEmailAndPassword
+	);
+}
+
 export function* userSagas () {
 	yield all([
-		call(onGoogleSignInStart)
+		call(onGoogleSignInStart),
+		call(onEmailSignInStart)
 	]);
 }
