@@ -6,22 +6,26 @@ import UserActionTypes from './user.types';
 
 import { signInSuccess, signInFailure } from './user.actions';
 
+export function* getSnapshotFromUserAuth (userAuth) {
+	try {
+		const userRef = yield call(createUserProfileDocument, userAuth);
+
+		const userSnapshot = yield userRef.get();
+
+		yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+	}
+	catch (error) {
+		yield put(signInFailure(error));
+	}
+}
+
 export function* signInWithGoogle () {
 	try {
 		// getting userRef
 		// (since we want to access the value that gets returned when .signInWithPopup() is successful)
-		const userDocRef = yield auth.signInWithPopup(googleProvider);
+		const userAuth = yield auth.signInWithPopup(googleProvider);
 
-		const { user } = userDocRef;
-
-		const userRef = yield call(createUserProfileDocument, user);
-
-		const userSnapshot = yield userRef.get();
-
-		yield put(signInSuccess({
-			id: userSnapshot.id,
-			...userSnapshot.data()
-		}));
+		yield getSnapshotFromUserAuth(userAuth);
 	}
 	catch (error) {
 		yield put(signInFailure(error));
@@ -30,18 +34,9 @@ export function* signInWithGoogle () {
 
 export function* signInWithEmailAndPassword ({ payload: { email, password } }) {
 	try {
-		const userDocRef = yield auth.signInWithEmailAndPassword(email, password);
+		const userAuth = yield auth.signInWithEmailAndPassword(email, password);
 
-		const { user } = userDocRef;
-
-		const userRef = yield call(createUserProfileDocument, user);
-
-		const userSnapshot = yield userRef.get();
-
-		yield put(signInSuccess({
-			id: userSnapshot.id,
-			...userSnapshot.data()
-		}));
+		yield getSnapshotFromUserAuth(userAuth);
 	}
 	catch (error) {
 		yield put(signInFailure(error));
