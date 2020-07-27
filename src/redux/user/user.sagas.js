@@ -4,10 +4,7 @@ import { auth, googleProvider, createUserProfileDocument } from '../../firebase/
 
 import UserActionTypes from './user.types';
 
-import {
-	googleSignInSuccess, googleSignInFailure,
-	emailSignInSuccess, emailSignInFailure
-} from './user.actions';
+import { signInSuccess, signInFailure } from './user.actions';
 
 export function* signInWithGoogle () {
 	try {
@@ -21,13 +18,13 @@ export function* signInWithGoogle () {
 
 		const userSnapshot = yield userRef.get();
 
-		yield put(googleSignInSuccess({
+		yield put(signInSuccess({
 			id: userSnapshot.id,
 			...userSnapshot.data()
 		}));
 	}
 	catch (error) {
-		yield put(googleSignInFailure(error));
+		yield put(signInFailure(error));
 	}
 }
 
@@ -41,13 +38,13 @@ export function* signInWithEmailAndPassword ({ payload: { email, password } }) {
 
 		const userSnapshot = yield userRef.get();
 
-		yield put(emailSignInSuccess({
+		yield put(signInSuccess({
 			id: userSnapshot.id,
 			...userSnapshot.data()
 		}));
 	}
 	catch (error) {
-		yield put(emailSignInFailure(error));
+		yield put(signInFailure(error));
 	}
 }
 
