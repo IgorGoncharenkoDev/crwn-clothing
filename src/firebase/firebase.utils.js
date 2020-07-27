@@ -92,7 +92,7 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 // setting up Google Authentication
-const googleProvider = new firebase.auth.GoogleAuthProvider();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 // triggering the Google popup (when using GoogleAuthProvider() for authentication and sign in)
 googleProvider.setCustomParameters({

@@ -3,7 +3,7 @@ import { persistStore } from 'redux-persist';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 
-import { fetchCollectionsStart } from './shop/shop.sagas';
+import rootSaga from './root-saga';
 
 import rootReducer from './root-reducer';
 
@@ -20,7 +20,7 @@ export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
 // running and adding in individual sagas that we are going to write
 // inside .run() we pass each individual saga
-sagaMiddleware.run(fetchCollectionsStart);
+sagaMiddleware.run(rootSaga);
 
 // creating a persisted version of our store
 export const persistor = persistStore(store);

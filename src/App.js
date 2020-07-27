@@ -21,6 +21,7 @@ const App = ({ currentUser, setCurrentUser }) => {
   let unsubscribeFromAuth = null;
 
   useEffect(() => {
+    /*
     // subscription
     unsubscribeFromAuth = auth.onAuthStateChanged(async userAuthObject => {
       // user data: displayName, email
@@ -47,6 +48,7 @@ const App = ({ currentUser, setCurrentUser }) => {
       //   collectionsArray.map(({ title, items }) => ({ title, items}))
       // );
     });
+    */
 
     // is triggered on unmount
     return () => {

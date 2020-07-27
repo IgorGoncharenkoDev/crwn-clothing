@@ -1,18 +1,19 @@
 import React, { useReducer } from 'react';
+import { connect } from 'react-redux';
 
 import Box from '@material-ui/core/Box';
 
 import Input from '../ui-components/input/input.component';
 import Button from '../ui-components/button/button.component';
 
-import { auth } from '../../firebase/firebase.utils';
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
+import { googleSignInStart } from '../../redux/user/user.actions';
 
 import { Title, Subtitle, Form } from '../../pages/log-in/log-in.styles';
 import { ButtonsContainer } from '../ui-components/button/button.styles';
 import { SignInStyled } from './sign-in.styles';
 
-const SignIn = () => {
+const SignIn = ({ googleSignInStart }) => {
 	const INITIAL_STATE = {
 		email: '',
 		password: ''
@@ -89,7 +90,7 @@ const SignIn = () => {
 							type="button"
 							googleSignIn
 							uppercase
-							onClick={ signInWithGoogle }
+							onClick={ googleSignInStart }
 						>
 							Sign In With Google
 						</Button>
@@ -100,4 +101,8 @@ const SignIn = () => {
 	)
 };
 
-export default SignIn;
+const mapDispatchToProps = dispatch => ({
+	googleSignInStart: () => dispatch(googleSignInStart())
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);

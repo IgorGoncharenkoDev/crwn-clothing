@@ -45,7 +45,6 @@ const Header = ({ currentUser, hidden, toggleCartDropdown }) => (
 								</Option>
 							)
 						}
-
 					</Options>
 				</Grid>
 				<Grid item xs="auto">
