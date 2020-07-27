@@ -6,6 +6,7 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCartDropdownHidden } from '../../redux/cart/cart.selectors';
 
 import { toggleCartDropdown } from '../../redux/cart/cart.actions';
+import { signOutStart } from '../../redux/user/user.actions';
 
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
@@ -18,7 +19,7 @@ import { HeaderStyled, LogoContainer, Options, Option } from './header.styles';
 
 import { ReactComponent as Logo } from '../../assets/images/logos/crown.svg';
 
-const Header = ({ currentUser, hidden, toggleCartDropdown }) => (
+const Header = ({ currentUser, hidden, toggleCartDropdown, signOutStart }) => (
 	<HeaderStyled>
 		<Container>
 			<Grid container spacing={ 4 }>
@@ -36,7 +37,7 @@ const Header = ({ currentUser, hidden, toggleCartDropdown }) => (
 							currentUser ? (
 								<Option
 									as="span"
-									onClick={ () => { auth.signOut(); !hidden &&  toggleCartDropdown(); } }>
+									onClick={ () => { signOutStart(); !hidden && toggleCartDropdown(); } }>
 									Log Out
 								</Option>
 							) : (
@@ -68,7 +69,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-	toggleCartDropdown: () => dispatch(toggleCartDropdown())
+	toggleCartDropdown: () => dispatch(toggleCartDropdown()),
+	signOutStart: () => dispatch(signOutStart())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

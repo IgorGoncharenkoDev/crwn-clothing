@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
+import { connect } from 'react-redux';
 
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { signUpStart } from '../../redux/user/user.actions';
 
 import Input from '../ui-components/input/input.component';
 import Button from '../ui-components/button/button.component';
@@ -9,7 +10,7 @@ import { Title, Subtitle, Form } from '../../pages/log-in/log-in.styles';
 import { SignUpStyled } from './sign-up.styles';
 import { ButtonsContainer } from '../ui-components/button/button.styles';
 
-const SignUp = () => {
+const SignUp = ({ signUpStart }) => {
 	const INITIAL_STATE = {
 		displayName: '',
 		email: '',
@@ -41,7 +42,7 @@ const SignUp = () => {
 		}
 	};
 
-	const [formState, dispatch] = useReducer(formReducer, INITIAL_STATE);
+	const [ formState, dispatch ] = useReducer(formReducer, INITIAL_STATE);
 
 	const { displayName, email, password, confirmPassword } = formState;
 
@@ -62,16 +63,20 @@ const SignUp = () => {
 			return false;
 		}
 
-		try {
-			const { user } = await auth.createUserWithEmailAndPassword(email, password);
+		signUpStart({ email, password, displayName });
 
-			await createUserProfileDocument(user, { displayName });
+		// dispatch({ type: actionTypes.RESET });
 
-			dispatch({ type: actionTypes.RESET });
-		}
-		catch (err) {
-			console.log('Error when loggin in as an existing user:', err.message)
-		}
+		// try {
+		// 	const { user } = await auth.createUserWithEmailAndPassword(email, password);
+		//
+		// 	await createUserProfileDocument(user, { displayName });
+		//
+		// 	dispatch({ type: actionTypes.RESET });
+		// }
+		// catch (err) {
+		// 	console.log('Error when loggin in as an existing user:', err.message)
+		// }
 	};
 
 	return (
@@ -124,4 +129,8 @@ const SignUp = () => {
 	)
 };
 
-export default SignUp;
+const mapDispatchToProps = dispatch => ({
+	signUpStart: userCredentials => dispatch(signUpStart(userCredentials)),
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);
