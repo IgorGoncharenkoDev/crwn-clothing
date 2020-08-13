@@ -11,8 +11,6 @@ import { signOutStart } from '../../redux/user/user.actions';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
-import { auth } from '../../firebase/firebase.utils';
-
 import { Container, Grid, Box } from '@material-ui/core';
 
 import { HeaderStyled, LogoContainer, Options, Option } from './header.styles';

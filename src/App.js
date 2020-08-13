@@ -17,7 +17,7 @@ import Header from './components/header/header.component';
 import './styles/styles.scss';
 
 const App = ({ currentUser, checkUserSession }) => {
-  let unsubscribeFromAuth = null;
+  // let unsubscribeFromAuth = null;
 
   useEffect(() => {
     checkUserSession();
@@ -52,10 +52,10 @@ const App = ({ currentUser, checkUserSession }) => {
     */
 
     // is triggered on unmount
-    return () => {
-      unsubscribeFromAuth();
-    };
-  }, []);
+    // return () => {
+    //   unsubscribeFromAuth();
+    // };
+  }, [checkUserSession]);
 
   return (
     <div className="App">
